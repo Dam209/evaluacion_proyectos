@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Lista de Evaluaciones{% endblock %}
+{% block content %}
+<h2>Mis Evaluaciones</h2>
+<table>
+    <tr>
+        <th>Estudiante</th>
+        <th>Proyecto</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    {% for ev in evaluaciones %}
+    <tr>
+        <td>{{ ev.estudiante.nombre }}</td>
+        <td>{{ ev.proyecto.titulo }}</td>
+        <td>{{ ev.estado }}</td>
+        <td>
+            <a href="{{ url_for('detalle_evaluacion', id=ev.id) }}">Ver</a> |
+            <a href="{{ url_for('evaluar', id=ev.id) }}">Evaluar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+<form method="GET" action="{{ url_for('ver_evaluaciones') }}">
+    <label for="estado">Estado:</label>
+    <select name="estado">
+        <option value="">Todos</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="aprobado">Aprobado</option>
+    </select>
+    <button type="submit">Filtrar</button>
+</form>

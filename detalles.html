@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Detalle de Evaluación{% endblock %}
+{% block content %}
+<h2>Detalle de la Evaluación</h2>
+<p><strong>Estudiante:</strong> {{ evaluacion.estudiante.nombre }}</p>
+<p><strong>Proyecto:</strong> {{ evaluacion.proyecto.titulo }}</p>
+<p><strong>Estado:</strong> {{ evaluacion.estado }}</p>
+
+<h3>Evidencias</h3>
+<ul>
+    {% for evidencia in evaluacion.evidencias %}
+    <li><a href="{{ url_for('static', filename='evidencias/' ~ evidencia.archivo) }}">{{ evidencia.nombre }}</a></li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('subir_evidencia', id=evaluacion.id) }}">Subir nueva evidencia</a>
+{% endblock %}
